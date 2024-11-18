@@ -1,0 +1,290 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Bakery.master.cs" Inherits="AssignmentWAD.Bakery" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Pâtisserie Terroirs</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/templatemo.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:Panel runat="server" CssClass="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" ID="templatemo_nav_top">
+            <div class="container text-light">
+                <div class="w-100 d-flex justify-content-between">
+                    <div>
+                        <i class="fa fa-envelope mx-2"></i>
+                        <asp:HyperLink runat="server" CssClass="navbar-sm-brand text-light text-decoration-none" NavigateUrl="mailto:patisserie_terroirs@bakery.com">patisserie_terroirs@bakery.com</asp:HyperLink>
+                        <i class="fa fa-phone mx-2"></i>
+                        <asp:HyperLink runat="server" CssClass="navbar-sm-brand text-light text-decoration-none" NavigateUrl="tel:013-3201802">013-3201802</asp:HyperLink>
+                    </div>
+
+                    <div>
+                        <asp:HyperLink runat="server" CssClass="text-light" NavigateUrl="https://fb.com" Target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></asp:HyperLink>
+                        <asp:HyperLink runat="server" CssClass="text-light" NavigateUrl="https://www.instagram.com/" Target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></asp:HyperLink>
+                        <asp:HyperLink runat="server" CssClass="text-light" NavigateUrl="https://twitter.com/" Target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></asp:HyperLink>
+                    </div>
+                </div>
+            </div>
+        </asp:Panel>
+        <asp:Panel runat="server" CssClass="navbar navbar-expand-lg navbar-light shadow">
+            <div class="container d-flex justify-content-between align-items-center">
+                <img class="img-fluid" src="../assets/img/pt_logo1.png" width="150" height="70" alt="" />
+
+                <asp:LoginView ID="LoginView1" runat="server">
+                    <AnonymousTemplate>
+                        <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                            <div class="flex-fill">
+                                <ul class="nav navbar-nav d-flex mx-lg-auto">
+                                    <li class="nav-item">
+                                        <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Home.aspx">Home</asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=1">Bread</asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=2">Cake</asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=3">Cookie</asp:HyperLink>
+                                    </li>
+                                    <li>
+                                        <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/AboutUs.aspx">About Us</asp:HyperLink>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="navbar align-self-center d-flex">
+                                <asp:HyperLink runat="server" CssClass="nav-icon position-relative text-decoration-none" NavigateUrl="~/Customer/Cart.aspx">
+                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-danger text-dark" style="font-size: 10px; color:white;"></span>
+                                </asp:HyperLink>
+                                <asp:HyperLink runat="server" CssClass="nav-icon position-relative text-decoration-none" NavigateUrl="~/Login.aspx">
+                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    <span class="position-absolute top-0 translate-middle badge rounded-pill text-dark bg-light bg-gradient" style="font-size: 10px;">Login Now</span>
+                                </asp:HyperLink>
+                            </div>
+                        </div>
+                    </AnonymousTemplate>
+                    <RoleGroups>
+                        <asp:RoleGroup Roles="customer">
+                            <ContentTemplate>
+                                <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                                    <div class="flex-fill">
+                                        <ul class="nav navbar-nav d-flex mx-lg-auto">
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Home.aspx">Home</asp:HyperLink>
+                                            </li>
+                                            <li>
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=1">Bread</asp:HyperLink>
+                                            </li>
+                                            <li>
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=2">Cake</asp:HyperLink>
+                                            </li>
+                                            <li>
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=3">Cookie</asp:HyperLink>
+                                            </li>
+                                            <li>
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/AboutUs.aspx">About Us</asp:HyperLink>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="navbar align-self-center d-flex">
+                                        <asp:HyperLink runat="server" CssClass="nav-icon position-relative text-decoration-none" NavigateUrl="~/Customer/Cart.aspx">
+    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill  bg-danger text-dark" style="font-size: 10px; color:white;"><asp:Label ID="lblCart" runat="server" Text=""></asp:Label></span>
+                                        </asp:HyperLink>
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <asp:LoginName ID="LoginName3" runat="server" />
+                                                <i class="bi bi-chevron-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Account/Profile.aspx">My Profile</asp:HyperLink>
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Account/ChangePassword.aspx">Change Password</asp:HyperLink>
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Customer/ViewOrderHistory.aspx">Order History</asp:HyperLink>
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Customer/WishList.aspx">Wish List</asp:HyperLink>
+                                                <asp:LoginStatus ID="LoginStatus3" runat="server" LogoutAction="Redirect" LogoutPageUrl="~/Login.aspx" CssClass="dropdown-item" LoginText="Logout" OnLoggingOut="LoginStatus3_LoggingOut" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                        <asp:RoleGroup Roles="employee">
+                            <ContentTemplate>
+                                <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                                    <div class="flex-fill">
+                                        <ul class="nav navbar-nav d-flex mx-lg-auto">
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Home.aspx">Home</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Employee/ViewProductList.aspx"> Product</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Employee/ViewUserList.aspx"> User</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Employee/OrderManage.aspx">Manage Order</asp:HyperLink>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="navbar align-self-center d-flex">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <asp:LoginName ID="LoginName3" runat="server" />
+                                                <i class="bi bi-chevron-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Account/Profile.aspx">My Profile</asp:HyperLink>
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Account/ChangePassword.aspx">Change Password</asp:HyperLink>
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Employee/ApplyLeave.aspx">Apply Leave</asp:HyperLink>
+
+                                                <asp:LoginStatus ID="LoginStatus3" runat="server" LogoutAction="Redirect" LogoutPageUrl="~/Login.aspx" CssClass="dropdown-item" LoginText="Logout" OnLoggingOut="LoginStatus3_LoggingOut" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                        <asp:RoleGroup Roles="admin">
+                            <ContentTemplate>
+                                <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                                    <div class="flex-fill">
+                                        <ul class="nav navbar-nav d-flex mx-lg-auto">
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Home.aspx">Home</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Employee/ViewProductList.aspx"> Product</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Admin/ViewStaffList.aspx"> Staff</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Employee/ViewUserList.aspx"> User</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Employee/OrderManage.aspx">Manage Order</asp:HyperLink>
+                                            </li>
+                                            <li class="nav-item">
+                                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Admin/SalesReport.aspx">Report</asp:HyperLink>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="navbar align-self-center d-flex">
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <asp:LoginName ID="LoginName3" runat="server" />
+                                                <i class="bi bi-chevron-down"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="profileDropdown">
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Account/Profile.aspx">My Profile</asp:HyperLink>
+                                                <asp:HyperLink runat="server" CssClass="dropdown-item" NavigateUrl="~/Account/ChangePassword.aspx">Change Password</asp:HyperLink>
+                                                <asp:LoginStatus ID="LoginStatus3" runat="server" LogoutAction="Redirect" LogoutPageUrl="~/Login.aspx" CssClass="dropdown-item" LoginText="Logout" OnLoggingOut="LoginStatus3_LoggingOut" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:RoleGroup>
+                    </RoleGroups>
+                </asp:LoginView>
+            </div>
+        </asp:Panel>
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                content
+            </asp:ContentPlaceHolder>
+        </div>
+
+
+        <asp:Panel runat="server" CssClass="bg-dark" ID="tempaltemo_footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 pt-5">
+                        <h2 class="h2 text-success border-bottom pb-3 border-light logo">Pâtisserie Terroirs</h2>
+                        <ul class="list-unstyled text-light footer-link-list">
+                            <li>
+                                <i class="fas fa-map-marker-alt fa-fw"></i>
+                                Pâtisserie Terroirs,
+                                <br />
+                                12, Jalan Genting Klang,<br />
+                                53200 Kuala Lumpur
+                            </li>
+                            <li>
+                                <i class="fa fa-phone fa-fw"></i>
+                                <a class="text-decoration-none" href="tel:013-3201802">013-3201802</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope fa-fw"></i>
+                                <a class="text-decoration-none" href="mailto:patisserie_terroirs@bakery.com">patisserie_terroirs@bakery.com</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 pt-5">
+                        <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                        <ul class="list-unstyled text-light footer-link-list">
+                            <li class="nav-item">
+                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Home.aspx">Home</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=1">Bread</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=2">Cake</asp:HyperLink>
+                            </li>
+                            <li>
+                                <asp:HyperLink runat="server" CssClass="nav-link" NavigateUrl="~/Product.aspx?CategoryID=3">Cookie</asp:HyperLink>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row text-light mb-0">
+                    <div class="col-12 mb-3">
+                        <div class="w-100 my-3 border-top border-light"></div>
+                    </div>
+                    <div class="col-auto me-auto">
+                        <ul class="list-inline text-left footer-icons">
+                            <li class="list-inline-item border border-light rounded-circle text-center">
+                                <a class="text-light text-decoration-none" target="_blank" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                            </li>
+                            <li class="list-inline-item border border-light rounded-circle text-center">
+                                <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                            </li>
+                            <li class="list-inline-item border border-light rounded-circle text-center">
+                                <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                            </li>
+
+                        </ul>
+
+                        <p>
+                            © Pâtisserie Terroirs. All Rights Reserved | Pâtisserie Terroirs | patisserie_terroirs@bakery.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </asp:Panel>
+
+
+        <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>
+        <script src="assets/js/templatemo.js"></script>
+        <script src="assets/js/custom.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </form>
+</body>
+</html>
+
