@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <cd>
+        <id>B0001</id>
+        <title>testbook1</title>
+        <author>Author 1</author>
+        <category>Category1</category>
+        <stock>8</stock>
+        <price>50.00</price>
+        <status>Available</status>
+    </cd>
+    <cd>
+        <id>B0002</id>
+        <title>testbook2</title>
+        <author>Author 2</author>
+        <category>Category2</category>
+        <stock>10</stock>
+        <price>50.00</price>
+        <status>Available</status>
+    </cd>
+    <lowStock>
+        <cd>
+            <id>B0001</id>
+            <title>testbook1</title>
+            <author>Author 1</author>
+            <category>Category1</category>
+            <stock>8</stock>
+            <price>50.00</price>
+            <status>Available</status>
+        </cd>
+    </lowStock>
+    <top10LowStock>
+        <cd>
+            <id>B0001</id>
+            <title>testbook1</title>
+            <author>Author 1</author>
+            <category>Category1</category>
+            <stock>8</stock>
+            <price>50.00</price>
+            <status>Available</status>
+        </cd>
+        <cd>
+            <id>B0002</id>
+            <title>testbook2</title>
+            <author>Author 2</author>
+            <category>Category2</category>
+            <stock>10</stock>
+            <price>50.00</price>
+            <status>Available</status>
+        </cd>
+    </top10LowStock>
+    <top10HighStock>
+        <cd>
+            <id>B0002</id>
+            <title>testbook2</title>
+            <author>Author 2</author>
+            <category>Category2</category>
+            <stock>10</stock>
+            <price>50.00</price>
+            <status>Available</status>
+        </cd>
+        <cd>
+            <id>B0001</id>
+            <title>testbook1</title>
+            <author>Author 1</author>
+            <category>Category1</category>
+            <stock>8</stock>
+            <price>50.00</price>
+            <status>Available</status>
+        </cd>
+    </top10HighStock>
+</catalog>
